@@ -42,7 +42,7 @@ def keypress(sender, key)
   elsif key == "q"
     p "im landing"
     after(2.seconds) {drone.hover.land}
-    after(6.seconds) {drone.stop}
+    # after(6.seconds) {drone.stop}
   elsif key == "w"
     p "im going forwards"
     drone.forward(0.1)
