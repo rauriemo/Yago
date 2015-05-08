@@ -35,7 +35,7 @@ def keypress(sender, key)
     drone.turn_right(0.1)
   elsif key == "left"
     p "im turning left"
-    drone.turn_left(0.1)
+    drone.turn_left(0.5)
   elsif key == "t"
     p "im taking off"
     drone.take_off
