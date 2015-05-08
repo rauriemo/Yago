@@ -58,6 +58,13 @@ def keypress(sender, key)
   elsif key == "h"
     p "im hovering"
     drone.hover
+  elsif key == "f"
+    p "im flipping"
+    after(1.seconds) {drone.animate(:flip_ahead, 1000)}
+    after(3.seconds) {drone.hover}
+  elsif key == "c"
+    p "im shaking"
+    drone.animate("flipAhead", 1500)
   end
   p key
 end
@@ -65,7 +72,6 @@ end
 def fly(*data)
   drone.take_off
   after(5.seconds) { drone.up(0.5) }
-  # after(5.seconds) { drone.animate(:flip_ahead, 1000) }
   after(7.seconds) { drone.hover }
   after(10.seconds) {drone.right(0.2)}
   after(12.seconds) {drone.hover}
