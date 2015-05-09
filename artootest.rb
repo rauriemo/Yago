@@ -1,7 +1,12 @@
 require 'artoo'
+require 'opencv'
+include Open
 
-# connection :capture, :adaptor => :opencv_capture, :source=> "tcp://192.168.1.1:5555"
-# device :capture, :driver => :opencv_capture, :connection => :capture, :interval => 0.0
+connection :capture, :adaptor => :opencv_capture, :source=> "tcp://192.168.1.1:5555"
+device :capture, :driver => :opencv_capture, :connection => :capture, :interval => 0.0
+
+connection :video, :adaptor => :opencv_window, :title => "Video"
+device :video, :driver => :opencv_window, :connection => :video, :interval => 0.0
 
 connection :ardrone, :adaptor => :ardrone, :port => '192.168.1.1:5556'
 device :drone, :driver => :ardrone, :connection => :ardrone
@@ -16,7 +21,14 @@ device :keyboard, driver: :keyboard, connection: :keyboard
 
 work do
   # on drone, :ready => :fly
+  on capture, :frame => :on_image
   on keyboard, :key => :keypress
+  every (0.5) {
+    @detect_on = true
+    opencv = capture.opencv
+    video.image = opencv.image
+    detect(opencv)
+  }
   drone.start(nav) # pass the nav object into the start method
   p nav
   p drone
@@ -83,4 +95,10 @@ def fly(*data)
 
   #   }
   #  }
+end
+
+def on_image(*value)
+  p value
+  # of !detect_on
+  #   video.image = value[1].image
 end
