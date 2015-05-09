@@ -1,6 +1,10 @@
 source 'https://rubygems.org'
-ruby '2.1.0'
+ruby '2.0.0'
 
+gem 'celluloid'
+gem 'artoo'
+gem 'artoo-ardrone'
+gem 'artoo-keyboard'
 # PostgreSQL driver
 gem 'pg'
 
